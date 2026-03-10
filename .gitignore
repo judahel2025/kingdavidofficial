@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Supabase Migration
+.env
+migrate.js
+migration_results.json
+node_modules
+migration_results.json
