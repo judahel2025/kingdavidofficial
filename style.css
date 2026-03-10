@@ -450,7 +450,13 @@ button {
 .section {
     padding: var(--section-padding);
     content-visibility: auto;
-    contain-intrinsic-size: 1px 500px;
+    contain-intrinsic-size: 1px 1000px;
+}
+
+.portfolio-swiper, 
+.foundation-image-stack,
+.hero-image-container img {
+    will-change: transform, opacity;
 }
 
 .white-bg {

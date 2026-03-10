@@ -156,9 +156,9 @@ const swiperOptions = {
         momentum: false,
     },
     watchSlidesProgress: true,
-    preloadImages: false,
     lazy: {
         loadPrevNext: true,
+        loadPrevNextAmount: 2,
     },
     allowTouchMove: true,
 };
