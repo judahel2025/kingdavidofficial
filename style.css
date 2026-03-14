@@ -126,6 +126,12 @@ button {
     object-fit: contain;
 }
 
+.fixed-logo.logo-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+}
+
 /* Side Drawer (Narrow Version) */
 .side-drawer {
     position: fixed;
@@ -223,6 +229,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .logo {
@@ -236,7 +243,7 @@ button {
 }
 
 .signature-logo {
-    height: 32px;
+    height: 80px;
     width: auto;
     display: block;
     object-fit: contain;

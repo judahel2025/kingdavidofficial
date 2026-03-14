@@ -27,14 +27,17 @@ drawerLinks.forEach(link => {
 // Scroll-Triggered Header & Menu Logic
 window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY;
+    const fixedLogo = document.querySelector('.fixed-logo');
 
     // Header visibility (Pill nav)
     if (scrollPos > 400) {
         mainNav.classList.add('header-visible');
         mainNav.classList.remove('header-hidden');
+        if (fixedLogo) fixedLogo.classList.add('logo-hidden');
     } else {
         mainNav.classList.remove('header-visible');
         mainNav.classList.add('header-hidden');
+        if (fixedLogo) fixedLogo.classList.remove('logo-hidden');
     }
 });
 
@@ -139,6 +142,194 @@ if (hero) {
     hero.style.transform = 'translateY(0)';
 }
 
+
+
+// Portfolio Data Mapping
+const CLOUD_NAME = "dbiyrudk1";
+const CLOUDINARY_BASE_URL = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,v1/`;
+
+const portfolioData = {
+  "brands": [
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479379/portfolio/brands/remax_branding.jpg",
+      "title": "REMAX BRANDING",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479374/portfolio/brands/bridgee_escrow.jpg",
+      "title": "BRIDGEE ESCROW",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479370/portfolio/brands/allyprime_2.jpg",
+      "title": "ALLYPRIME 2",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479369/portfolio/brands/allyprime_1.jpg",
+      "title": "ALLYPRIME 1",
+      "year": "2024"
+    }
+  ],
+  "campaigns": [
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479377/portfolio/campaigns/choice_estate.jpg",
+      "title": "CHOICE ESTATE",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479371/portfolio/campaigns/boys_quarters.jpg",
+      "title": "BOYS QUARTERS",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476893/portfolio/campaigns/Smart%20tips%20Academy.jpg",
+      "title": "SMART TIPS ACADEMY",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476891/portfolio/campaigns/Artix%20Solutions%20Flyer%20Mockup.jpg",
+      "title": "ARTIX SOLUTIONS FLYER MOCKUP",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476885/portfolio/campaigns/IMG_5358.jpg",
+      "title": "IMG 5358",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476883/portfolio/campaigns/IMG_5357-1.jpg",
+      "title": "IMG 5357 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476880/portfolio/campaigns/IMG_5356.jpg",
+      "title": "IMG 5356",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476878/portfolio/campaigns/Trading%20made%20Easy.jpg",
+      "title": "TRADING MADE EASY",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476868/portfolio/campaigns/988C342B-EEC0-43D2-9D0E-7391BFA7AC0F.jpg",
+      "title": "BQ AFRICA",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476864/portfolio/campaigns/3_20240917_155459_0001.jpg",
+      "title": "QUANTUM LEAP",
+      "year": "2024"
+    }
+  ],
+  "events": [
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476927/portfolio/events/IMG_20241002_182558_682.jpg",
+      "title": "BACK & BETTER",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476923/portfolio/events/IMG_5360-1.jpg",
+      "title": "EVENT ALPHA",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476920/portfolio/events/34_20240321_112057_0004.jpg",
+      "title": "EVENT Z",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476916/portfolio/events/13_20240930_001823_0003.jpg",
+      "title": "EVENT X",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476913/portfolio/events/Copy%20of%20Victor%20Fatanmi.jpg",
+      "title": "VICTOR FATANMI",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476912/portfolio/events/Copy%20of%20Uyoyo%20Edioso_.jpg",
+      "title": "UYOYO EDIOSO",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476909/portfolio/events/Copy%20of%20Solomon_s%20Story.jpg",
+      "title": "SOLOMON STORY",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476908/portfolio/events/Copy%20of%20HyperGrowth%20Landscape.jpg",
+      "title": "HYPERGROWTH LANDSCAPE",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476906/portfolio/events/HyperGrowth%20With%20Solomon%20Cohort%202%20%281%29.jpg",
+      "title": "HYPERGROWTH WITH SOLOMON",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476904/portfolio/events/Copy%20of%20Zero%20to%20One.jpg",
+      "title": "ZERO TO ONE",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476902/portfolio/events/Copy%20of%20Metanoia_.jpg",
+      "title": "METANOIA",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476899/portfolio/events/Copy%20of%20Hyper%20Growth%20Full%20Details.jpg",
+      "title": "HYPER GROWTH",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476897/portfolio/events/Copy%20of%20FutureProof%20Static.jpg",
+      "title": "FUTUREPROOF",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476895/portfolio/events/Copy%20of%202nd%20Half%20Static.jpg",
+      "title": "2ND HALF STATIC",
+      "year": "2024"
+    }
+  ]
+};
+
+const renderPortfolio = () => {
+    console.log('Starting renderPortfolio...');
+    const categories = {
+        brands: document.getElementById('branding-wrapper'),
+        campaigns: document.getElementById('campaign-wrapper'),
+        events: document.getElementById('events-wrapper')
+    };
+
+    Object.keys(portfolioData).forEach(cat => {
+        const wrapper = categories[cat];
+        if (!wrapper) {
+            console.warn(`Wrapper for category ${cat} not found!`);
+            return;
+        }
+
+        console.log(`Rendering ${portfolioData[cat].length} items for ${cat}...`);
+        portfolioData[cat].forEach(item => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            
+            slide.innerHTML = `
+                <img src="${item.url}" alt="${item.title}" loading="lazy" decoding="async" 
+                     onerror="this.onerror=null; console.error('Failed to load image:', '${item.url}'); this.src='https://res.cloudinary.com/dbiyrudk1/image/upload/v1/assets/signature.png';">
+                <div class="slide-info">
+                    <h3>${item.title}</h3><span>${item.year}</span>
+                </div>
+            `;
+            wrapper.appendChild(slide);
+        });
+    });
+    console.log('renderPortfolio complete.');
+};
+
 // Initialize Swiper for Portfolio
 const swiperOptions = {
     slidesPerView: 'auto',
@@ -164,6 +355,10 @@ const swiperOptions = {
 };
 
 window.addEventListener('DOMContentLoaded', () => {
+    // Render dynamic images first
+    renderPortfolio();
+
+    // Initialize Swipers
     if (document.getElementById('branding-swiper')) {
         new Swiper('#branding-swiper', swiperOptions);
     }
@@ -174,21 +369,23 @@ window.addEventListener('DOMContentLoaded', () => {
         new Swiper('#events-swiper', swiperOptions);
     }
 
-    // Lightbox Logic
+    // Lightbox Logic (Modified for Dynamic Elements)
     const lightbox = document.getElementById('portfolio-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
     const closeBtn = document.querySelector('.close-lightbox');
     const backToSiteBtn = document.querySelector('.back-to-site');
 
-    document.querySelectorAll('.swiper-slide img').forEach(img => {
-        img.addEventListener('click', () => {
+    // Use event delegation for dynamic images
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.swiper-slide img')) {
+            const img = e.target.closest('.swiper-slide img');
             lightbox.classList.add('active');
             lightboxImg.src = img.src;
             const caption = img.nextElementSibling ? img.nextElementSibling.querySelector('h3').textContent : '';
             lightboxCaption.textContent = caption;
             document.body.style.overflow = 'hidden'; // Prevent scrolling
-        });
+        }
     });
 
     const closeLightbox = () => {
@@ -196,9 +393,11 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'auto';
     };
 
-    closeBtn.addEventListener('click', closeLightbox);
-    backToSiteBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-    });
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (backToSiteBtn) backToSiteBtn.addEventListener('click', closeLightbox);
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
 });

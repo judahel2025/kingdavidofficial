@@ -1,0 +1,188 @@
+{
+  "brands": [
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479379/portfolio/brands/remax_branding.jpg",
+      "title": "REMAX BRANDING",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479374/portfolio/brands/bridgee_escrow.jpg",
+      "title": "BRIDGEE ESCROW",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479373/portfolio/brands/branding_2.jpg",
+      "title": "BRANDING 2",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479372/portfolio/brands/branding_1.jpg",
+      "title": "BRANDING 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479370/portfolio/brands/allyprime_2.jpg",
+      "title": "ALLYPRIME 2",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479369/portfolio/brands/allyprime_1.jpg",
+      "title": "ALLYPRIME 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476862/portfolio/brands/Videos.jpg",
+      "title": "VIDEOS",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476859/portfolio/brands/Reviews.jpg",
+      "title": "REVIEWS",
+      "year": "2024"
+    }
+  ],
+  "campaigns": [
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479377/portfolio/campaigns/choice_estate.jpg",
+      "title": "CHOICE ESTATE",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479376/portfolio/campaigns/campaign_2.jpg",
+      "title": "CAMPAIGN 2",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479375/portfolio/campaigns/campaign_1.jpg",
+      "title": "CAMPAIGN 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479371/portfolio/campaigns/boys_quarters.jpg",
+      "title": "BOYS QUARTERS",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476893/portfolio/campaigns/Smart%20tips%20Academy.jpg",
+      "title": "SMART TIPS ACADEMY",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476891/portfolio/campaigns/Artix%20Solutions%20Flyer%20Mockup.jpg",
+      "title": "ARTIX SOLUTIONS FLYER MOCKUP",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476885/portfolio/campaigns/IMG_5358.jpg",
+      "title": "IMG 5358",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476883/portfolio/campaigns/IMG_5357-1.jpg",
+      "title": "IMG 5357 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476880/portfolio/campaigns/IMG_5356.jpg",
+      "title": "IMG 5356",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476878/portfolio/campaigns/Trading%20made%20Easy.jpg",
+      "title": "TRADING MADE EASY",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476868/portfolio/campaigns/988C342B-EEC0-43D2-9D0E-7391BFA7AC0F.jpg",
+      "title": "988C342B EEC0 43D2 9D0E 7391BFA7AC0F",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476864/portfolio/campaigns/3_20240917_155459_0001.jpg",
+      "title": "3 20240917 155459 0001",
+      "year": "2024"
+    }
+  ],
+  "events": [
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479378/portfolio/events/events_2.jpg",
+      "title": "EVENTS 2",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773479378/portfolio/events/events_1.jpg",
+      "title": "EVENTS 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476927/portfolio/events/IMG_20241002_182558_682.jpg",
+      "title": "IMG 20241002 182558 682",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476923/portfolio/events/IMG_5360-1.jpg",
+      "title": "IMG 5360 1",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476920/portfolio/events/34_20240321_112057_0004.jpg",
+      "title": "34 20240321 112057 0004",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476916/portfolio/events/13_20240930_001823_0003.jpg",
+      "title": "13 20240930 001823 0003",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476913/portfolio/events/Copy%20of%20Victor%20Fatanmi.jpg",
+      "title": "VICTOR FATANMI",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476912/portfolio/events/Copy%20of%20Uyoyo%20Edioso_.jpg",
+      "title": "UYOYO EDIOSO ",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476909/portfolio/events/Copy%20of%20Solomon_s%20Story.jpg",
+      "title": "SOLOMON S STORY",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476908/portfolio/events/Copy%20of%20HyperGrowth%20Landscape.jpg",
+      "title": "HYPERGROWTH LANDSCAPE",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476906/portfolio/events/HyperGrowth%20With%20Solomon%20Cohort%202%20%281%29.jpg",
+      "title": "HYPERGROWTH WITH SOLOMON COHORT 2 (1)",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476904/portfolio/events/Copy%20of%20Zero%20to%20One.jpg",
+      "title": "ZERO TO ONE",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476902/portfolio/events/Copy%20of%20Metanoia_.jpg",
+      "title": "METANOIA ",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476899/portfolio/events/Copy%20of%20Hyper%20Growth%20Full%20Details.jpg",
+      "title": "HYPER GROWTH FULL DETAILS",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476897/portfolio/events/Copy%20of%20FutureProof%20Static.jpg",
+      "title": "FUTUREPROOF STATIC",
+      "year": "2024"
+    },
+    {
+      "url": "https://res.cloudinary.com/dbiyrudk1/image/upload/v1773476895/portfolio/events/Copy%20of%202nd%20Half%20Static.jpg",
+      "title": "2ND HALF STATIC",
+      "year": "2024"
+    }
+  ]
+}
