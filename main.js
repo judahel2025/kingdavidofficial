@@ -113,11 +113,7 @@ const typedTitle = document.getElementById('typed-title');
 const taglineEl = document.getElementById('hero-tagline');
 const nameLines = ["Kingdavid", "Babalola"];
 const taglines = [
-    "Creative Director · Brand Strategist",
-    "Architect of Visual Identities",
-    "Forging Brands That Endure",
-    "Creative Alchemist",
-    "Brand Oracle"
+    "Creative Director · Design Alchemist · Brand Strategist"
 ];
 
 let taglineIndex = 0;
@@ -125,109 +121,51 @@ let taglineCycleId = 0;
 
 const runTaglineStamp = async (text, cycleId) => {
     if (cycleId !== taglineCycleId) return;
-    const isBrandOracle = text === "Brand Oracle";
     taglineEl.innerHTML = '';
     taglineEl.style.opacity = '1';
     taglineEl.style.filter = 'none';
 
-    if (isBrandOracle) {
-        // Flicker in "Brand" and "Oracle" separately (like candle flame)
-        const words = text.split(' ');
-        for (let i = 0; i < words.length; i++) {
-            if (cycleId !== taglineCycleId) return;
-            const word = words[i];
-            const wordSpan = document.createElement('span');
-            wordSpan.className = 'stamp-word';
-            wordSpan.textContent = word;
-            taglineEl.appendChild(wordSpan);
-            
-            // Flicker effect: rapidly toggle between invisible and dim gold
-            for (let flicker = 0; flicker < 8; flicker++) {
-                if (cycleId !== taglineCycleId) return;
-                wordSpan.style.opacity = flicker % 2 === 0 ? '0' : '0.2';
-                await new Promise(r => setTimeout(r, 40));
-            }
-            if (cycleId !== taglineCycleId) return;
-            animate(wordSpan, { opacity: 0.8 }, { duration: 0.3 }); // Lock to full dried gold
-            
-            if (i < words.length - 1) {
-                const space = document.createTextNode(' ');
-                taglineEl.appendChild(space);
-                await new Promise(r => setTimeout(r, 200));
-            }
-        }
-    } else {
-        // Standard Ancient Seal Stamp
-        const words = text.split(' ');
-        for (let i = 0; i < words.length; i++) {
-            if (cycleId !== taglineCycleId) return;
-            const wordSpan = document.createElement('span');
-            wordSpan.className = 'stamp-word';
-            wordSpan.textContent = words[i];
-            taglineEl.appendChild(wordSpan);
+    // Split by dot separator with optional surrounding whitespace
+    const segments = text.split(/\s*·\s*/);
+    for (let i = 0; i < segments.length; i++) {
+        if (cycleId !== taglineCycleId) return;
+        
+        const segmentSpan = document.createElement('span');
+        segmentSpan.className = 'stamp-word';
+        segmentSpan.textContent = segments[i].trim();
+        taglineEl.appendChild(segmentSpan);
 
-            // Word "Stamp" effect: wet ink (0.3) -> dry gold (0.8)
-            animate(wordSpan, 
-                { opacity: [0, 0.3, 0.8], scale: [1.15, 1] }, 
-                { duration: 0.6, easing: "ease-out" }
-            );
+        // Stamp effect: wet ink -> dry gold
+        animate(segmentSpan, 
+            { opacity: [0, 0.4, 0.8], scale: [1.1, 1] }, 
+            { duration: 0.6, easing: "ease-out" }
+        );
 
-            if (i < words.length - 1) {
-                const pause = document.createElement('span');
-                pause.className = 'stamp-pause';
-                pause.textContent = ' — ';
-                taglineEl.appendChild(pause);
-                await new Promise(r => setTimeout(r, 400));
-                if (cycleId !== taglineCycleId) return;
-            }
-            await new Promise(r => setTimeout(r, 300));
+        if (i < segments.length - 1) {
+            const dot = document.createElement('span');
+            dot.className = 'stamp-pause';
+            dot.textContent = ' · ';
+            taglineEl.appendChild(dot);
+            await new Promise(r => setTimeout(r, 450));
             if (cycleId !== taglineCycleId) return;
         }
+        await new Promise(r => setTimeout(r, 350));
+        if (cycleId !== taglineCycleId) return;
     }
 
-    // Hold tagline for 3 seconds
+    // Hold for exactly 3s
     if (cycleId !== taglineCycleId) return;
     await new Promise(r => setTimeout(r, 3000));
     if (cycleId !== taglineCycleId) return;
 
-    // Exit behavior
-    if (isBrandOracle) {
-        // Shatter effect: Letters scatter and vanish
-        const words = taglineEl.querySelectorAll('.stamp-word');
-        const letterPromises = [];
-        words.forEach(wordSpan => {
-            const wordText = wordSpan.textContent;
-            wordSpan.innerHTML = '';
-            for (const char of wordText) {
-                const charSpan = document.createElement('span');
-                charSpan.textContent = char;
-                charSpan.className = 'shatter-letter';
-                wordSpan.appendChild(charSpan);
-                
-                // Random scatter direction
-                const angle = Math.random() * Math.PI * 2;
-                const distance = 15 + Math.random() * 30;
-                letterPromises.push(animate(charSpan, 
-                    { 
-                        x: Math.cos(angle) * distance, 
-                        y: Math.sin(angle) * distance, 
-                        opacity: 0,
-                        rotate: (Math.random() - 0.5) * 90 
-                    }, 
-                    { duration: 0.6, easing: "ease-in" }
-                ).finished);
-            }
-        });
-        await Promise.all(letterPromises);
-    } else {
-        // Fade out like smoke dissolve
-        await animate(taglineEl, { opacity: 0, filter: "blur(6px)" }, { duration: 1.2 }).finished;
-    }
+    // Soft smoke fade out
+    await animate(taglineEl, { opacity: 0, filter: "blur(8px)" }, { duration: 1.5 }).finished;
 
     if (cycleId === taglineCycleId) {
         taglineEl.innerHTML = '';
     }
 };
+
 
 const runChiselLoop = async () => {
     while (true) {
