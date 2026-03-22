@@ -121,47 +121,119 @@ const taglines = [
 ];
 
 let taglineIndex = 0;
-let taglineController; // To cancel/reset tagline loop
+let taglineCycleId = 0;
 
-const runTaglineStamp = async (text) => {
+const runTaglineStamp = async (text, cycleId) => {
+    if (cycleId !== taglineCycleId) return;
+    const isBrandOracle = text === "Brand Oracle";
     taglineEl.innerHTML = '';
-    const words = text.split(' ');
-    
-    for (let i = 0; i < words.length; i++) {
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'stamp-word';
-        wordSpan.textContent = words[i];
-        taglineEl.appendChild(wordSpan);
-
-        // Word "Stamp" effect: low opacity -> deeper
-        animate(wordSpan, 
-            { opacity: [0, 0.4, 0.8], scale: [1.2, 1] }, 
-            { duration: 0.6, easing: "ease-out" }
-        );
-
-        if (i < words.length - 1) {
-            const pause = document.createElement('span');
-            pause.className = 'stamp-pause';
-            pause.textContent = ' — ';
-            taglineEl.appendChild(pause);
-            await new Promise(r => setTimeout(r, 400));
-        }
-        await new Promise(r => setTimeout(r, 300));
-    }
-
-    // Hold tagline
-    await new Promise(r => setTimeout(r, 3000));
-
-    // Fade out tagline "like smoke"
-    await animate(taglineEl, { opacity: 0, filter: "blur(4px)" }, { duration: 1 }).finished;
     taglineEl.style.opacity = '1';
     taglineEl.style.filter = 'none';
-    taglineEl.innerHTML = '';
+
+    if (isBrandOracle) {
+        // Flicker in "Brand" and "Oracle" separately (like candle flame)
+        const words = text.split(' ');
+        for (let i = 0; i < words.length; i++) {
+            if (cycleId !== taglineCycleId) return;
+            const word = words[i];
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'stamp-word';
+            wordSpan.textContent = word;
+            taglineEl.appendChild(wordSpan);
+            
+            // Flicker effect: rapidly toggle between invisible and dim gold
+            for (let flicker = 0; flicker < 8; flicker++) {
+                if (cycleId !== taglineCycleId) return;
+                wordSpan.style.opacity = flicker % 2 === 0 ? '0' : '0.2';
+                await new Promise(r => setTimeout(r, 40));
+            }
+            if (cycleId !== taglineCycleId) return;
+            animate(wordSpan, { opacity: 0.8 }, { duration: 0.3 }); // Lock to full dried gold
+            
+            if (i < words.length - 1) {
+                const space = document.createTextNode(' ');
+                taglineEl.appendChild(space);
+                await new Promise(r => setTimeout(r, 200));
+            }
+        }
+    } else {
+        // Standard Ancient Seal Stamp
+        const words = text.split(' ');
+        for (let i = 0; i < words.length; i++) {
+            if (cycleId !== taglineCycleId) return;
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'stamp-word';
+            wordSpan.textContent = words[i];
+            taglineEl.appendChild(wordSpan);
+
+            // Word "Stamp" effect: wet ink (0.3) -> dry gold (0.8)
+            animate(wordSpan, 
+                { opacity: [0, 0.3, 0.8], scale: [1.15, 1] }, 
+                { duration: 0.6, easing: "ease-out" }
+            );
+
+            if (i < words.length - 1) {
+                const pause = document.createElement('span');
+                pause.className = 'stamp-pause';
+                pause.textContent = ' — ';
+                taglineEl.appendChild(pause);
+                await new Promise(r => setTimeout(r, 400));
+                if (cycleId !== taglineCycleId) return;
+            }
+            await new Promise(r => setTimeout(r, 300));
+            if (cycleId !== taglineCycleId) return;
+        }
+    }
+
+    // Hold tagline for 3 seconds
+    if (cycleId !== taglineCycleId) return;
+    await new Promise(r => setTimeout(r, 3000));
+    if (cycleId !== taglineCycleId) return;
+
+    // Exit behavior
+    if (isBrandOracle) {
+        // Shatter effect: Letters scatter and vanish
+        const words = taglineEl.querySelectorAll('.stamp-word');
+        const letterPromises = [];
+        words.forEach(wordSpan => {
+            const wordText = wordSpan.textContent;
+            wordSpan.innerHTML = '';
+            for (const char of wordText) {
+                const charSpan = document.createElement('span');
+                charSpan.textContent = char;
+                charSpan.className = 'shatter-letter';
+                wordSpan.appendChild(charSpan);
+                
+                // Random scatter direction
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 15 + Math.random() * 30;
+                letterPromises.push(animate(charSpan, 
+                    { 
+                        x: Math.cos(angle) * distance, 
+                        y: Math.sin(angle) * distance, 
+                        opacity: 0,
+                        rotate: (Math.random() - 0.5) * 90 
+                    }, 
+                    { duration: 0.6, easing: "ease-in" }
+                ).finished);
+            }
+        });
+        await Promise.all(letterPromises);
+    } else {
+        // Fade out like smoke dissolve
+        await animate(taglineEl, { opacity: 0, filter: "blur(6px)" }, { duration: 1.2 }).finished;
+    }
+
+    if (cycleId === taglineCycleId) {
+        taglineEl.innerHTML = '';
+    }
 };
 
 const runChiselLoop = async () => {
     while (true) {
         // RESET TAGLINE ON REWRITE
+        taglineCycleId++; // Increment to cancel any running tagline animation
+        const currentCycleId = taglineCycleId;
         taglineIndex = 0;
         taglineEl.innerHTML = '';
 
@@ -214,20 +286,25 @@ const runChiselLoop = async () => {
         cursor.style.display = 'none';
         
         // Start Tagline Cycle in parallel
-        const taglinePromise = (async () => {
-            await new Promise(r => setTimeout(r, 800));
-            while (true) {
-                await runTaglineStamp(taglines[taglineIndex]);
+        const taglineCycle = (async () => {
+            await new Promise(r => setTimeout(r, 800)); // Initial delay after name
+            while (currentCycleId === taglineCycleId) {
+                await runTaglineStamp(taglines[taglineIndex], currentCycleId);
+                if (currentCycleId !== taglineCycleId) break;
                 taglineIndex = (taglineIndex + 1) % taglines.length;
-                await new Promise(r => setTimeout(r, 500));
-                if (taglineIndex === 0) break; // We'll restart with the name loop anyway
+                await new Promise(r => setTimeout(r, 500)); // 0.5s pause between descriptors
             }
         })();
 
-        // Name wait total: 5s (but name and tagline are concurrent)
+        // Name wait total: 5s (Name and tagline are concurrent)
         await new Promise(r => setTimeout(r, 5000));
 
         // 3. Unwriting phase (Name)
+        // The taglineCycle will be canceled at the start of the next loop iteration via taglineCycleId++
+        // Note: The taglineCycle promise will be "abandoned" and replaced in the next loop, 
+        // but runTaglineStamp should be robust to internal interruptions if we wanted to be perfect.
+        // For now, simple reset in the next loop is sufficient.
+        
         const line2Chars = Array.from(line2.querySelectorAll('span'));
         for (let i = line2Chars.length - 1; i >= 0; i--) {
             line2Chars[i].remove();
