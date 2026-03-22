@@ -1,9 +1,9 @@
 import './style.css'
+import { animate, inView, stagger, scroll } from "motion"
 
 // DOM Elements
 const menuToggle = document.getElementById('menu-toggle');
 const sideDrawer = document.getElementById('side-drawer');
-const closeDrawer = document.getElementById('close-drawer');
 const mainNav = document.getElementById('main-nav');
 const drawerLinks = document.querySelectorAll('.drawer-links a');
 
@@ -57,55 +57,63 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Animation on Scroll (Intersection Observer)
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+// --- High-Quality Animations using Motion ---
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+// 1. Hero Entrance Animation
+animate(".hero-content > *", 
+    { opacity: [0, 1], y: [30, 0] }, 
+    { delay: stagger(0.2), duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+);
 
-// Scroll Sequence Logic (Foundation Section)
-const section = document.querySelector('.foundation-scroll-section');
-const stackImages = document.querySelectorAll('.stack-image');
+animate(".hero-image-container img", 
+    { opacity: [0, 0.6], scale: [1.1, 1] }, 
+    { duration: 1.5, easing: "ease-out" }
+);
 
-window.addEventListener('scroll', () => {
-    if (!section) return;
-
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-    const scrollPos = window.scrollY;
-
-    // Calculate progress (0 to 1) through the section
-    let progress = (scrollPos - sectionTop) / (sectionHeight - window.innerHeight);
-    progress = Math.max(0, Math.min(1, progress));
-
-    // Determine which image to show
-    const totalImages = stackImages.length;
-    const activeIndex = Math.floor(progress * totalImages);
-
-    stackImages.forEach((img, index) => {
-        if (index === Math.min(activeIndex, totalImages - 1)) {
-            img.classList.add('active');
-        } else {
-            img.classList.remove('active');
-        }
-    });
+// 2. Section Entry Animations (on View)
+inView(".section, .hero-section", (info) => {
+    const target = info.target;
+    // Include all cards and content blocks for a consistent reveal
+    const selectors = ".section-title, .about-text, .portfolio-category, .award-card-v2, .contact-card-v2, .social-card-v2, .hero-content, .glass-about-card, .timeline-item.glass";
+    const elementsToAnimate = target.querySelectorAll(selectors);
+    
+    if (elementsToAnimate.length > 0) {
+        animate(elementsToAnimate, 
+            { opacity: [0, 1], y: [40, 0] }, 
+            { delay: stagger(0.15), duration: 1, easing: [0.16, 1, 0.3, 1] }
+        );
+    }
 });
 
-// Typewriter Effect for Hero Title
+// 3. Foundation Scroll Sequence (Image Stack Parallax)
+const foundationSection = document.querySelector('.foundation-scroll-section');
+const stackImages = document.querySelectorAll('.stack-image');
+
+if (foundationSection && stackImages.length > 0) {
+    stackImages.forEach((img, index) => {
+        scroll(
+            animate(img, { 
+                opacity: [0, 1, 1, 0],
+                scale: [0.9, 1, 1, 1.1],
+                filter: ["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
+            }),
+            {
+                target: foundationSection,
+                offset: [
+                    `${(index / stackImages.length) * 100}%`, 
+                    `${((index + 1) / stackImages.length) * 100}%`
+                ]
+            }
+        );
+    });
+}
+
+// 4. Typewriter Effect (Kept but enhanced speed)
 const typedTitle = document.getElementById('typed-title');
 const textToType = "Kingdavid Babalola";
 let charIndex = 0;
 let isDeleting = false;
-let typeSpeed = 300; // Significantly slower
+let typeSpeed = 150; 
 
 const type = () => {
     const currentText = textToType.substring(0, charIndex);
@@ -115,31 +123,23 @@ const type = () => {
 
     if (!isDeleting && charIndex < textToType.length) {
         charIndex++;
-        typeSpeed = 300; // Slower typing
+        typeSpeed = 150;
     } else if (isDeleting && charIndex > 0) {
         charIndex--;
-        typeSpeed = 200; // Slower erasing
+        typeSpeed = 100;
     } else if (!isDeleting && charIndex === textToType.length) {
         isDeleting = true;
-        typeSpeed = 5000; // Long pause at completion
+        typeSpeed = 4000;
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
-        typeSpeed = 1500; // Pause before restart
+        typeSpeed = 1000;
     }
 
     setTimeout(type, typeSpeed);
 };
 
-// Start typewriter after a short delay
 if (typedTitle) {
     setTimeout(type, 1000);
-}
-
-// Fix Hero visibility (Ensure it shows up)
-const hero = document.getElementById('hero');
-if (hero) {
-    hero.style.opacity = '1';
-    hero.style.transform = 'translateY(0)';
 }
 
 

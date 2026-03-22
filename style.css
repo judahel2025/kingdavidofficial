@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&family=Alex+Brush&display=swap');
 
 :root {
-    /* Colors */
-    --color-black: #000000;
+    /* Colors - Refined for a more premium feel */
+    --color-black: #050505;
     --color-white: #ffffff;
     --color-pale: #faf9f6;
-    /* Sophisticated Ivory */
-    --color-grey-dark: #111111;
-    --color-grey-mid: #333333;
+    --color-grey-dark: #0a0a0a;
+    --color-grey-mid: #1a1a1a;
     --color-grey-light: #f5f5f5;
     --color-accent-gold: #c5a059;
     --color-accent-ivory: #faf9f6;
@@ -16,20 +15,22 @@
     --color-accent-yellow: #fee440;
 
     /* Gradients */
-    --grad-primary: linear-gradient(90deg, #c5a059, #faf9f6);
+    --grad-primary: linear-gradient(135deg, #c5a059, #faf9f6);
     --grad-vibrant: linear-gradient(90deg, #f15bb5, #ff9a8b, #fee440);
-    --grad-dark: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    --grad-dark: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+    --grad-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
 
-    /* Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-blur: blur(15px);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    /* Glassmorphism - Enhanced */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-blur: blur(20px);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
     /* Spacing & Borders */
-    --radius-xl: 32px;
+    --radius-xl: 40px;
     --radius-lg: 24px;
-    --radius-md: 12px;
-    --section-padding: 120px 8%;
+    --radius-md: 16px;
+    --section-padding: 160px 8%;
 
     /* Fonts */
     --font-heading: 'Outfit', sans-serif;
@@ -212,12 +213,13 @@ button {
     left: 50%;
     transform: translateX(-50%) translateY(-100px);
     width: 90%;
-    max-width: 1000px;
+    max-width: 1100px;
     z-index: 1000;
-    border-radius: 50px;
-    padding: 10px 10px 10px 30px;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+    border-radius: 60px;
+    padding: 12px 14px 12px 40px;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
     opacity: 0;
+    box-shadow: var(--glass-shadow);
 }
 
 .floating-nav.header-visible {
@@ -295,6 +297,8 @@ button {
 .hero-content {
     text-align: left;
     max-width: 800px;
+    position: relative;
+    z-index: 10;
 }
 
 .hero-main-title {
@@ -407,26 +411,27 @@ button {
 }
 
 .btn-v2 {
-    padding: 18px 36px;
-    border-radius: 40px;
+    padding: 20px 40px;
+    border-radius: 50px;
     font-weight: 800;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    transition: all 0.4s ease;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-transform: uppercase;
 }
 
 .btn-solid {
-    background: var(--color-pale);
+    background: var(--color-white);
     color: var(--color-black);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
 }
 
 .btn-solid:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
 }
 
 .btn-outline {
@@ -444,7 +449,9 @@ button {
 .glass {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border: 1px solid var(--glass-border);
+    background-image: var(--grad-glass);
 }
 
 .gradient-text {
@@ -514,9 +521,19 @@ button {
 }
 
 .about-text {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     margin-bottom: 25px;
-    opacity: 0.8;
+    opacity: 0.9;
+    color: var(--color-black);
+}
+
+.glass-about-card {
+    padding: 50px;
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.7); /* Lighter glass for white bg */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
 }
 
 /* Marquee / Showcase */
@@ -682,22 +699,25 @@ button {
 }
 
 .award-card-v2 {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 50px 40px;
-    min-height: 450px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 60px 45px;
+    min-height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
 }
 
 .award-card-v2:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(197, 160, 89, 0.3);
-    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-15px) scale(1.02);
 }
 
 .award-card-v2::before {
@@ -837,6 +857,28 @@ button {
     padding: 100px 0;
 }
 
+.timeline-item {
+    position: relative;
+    width: 45%;
+    padding: 20px 0;
+}
+
+.timeline-item.glass {
+    padding: 40px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 40px;
+}
+
+.timeline-item.glass:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-8px) scale(1.02);
+}
+
 .timeline-line {
     position: absolute;
     left: 50%;
@@ -938,20 +980,19 @@ button {
 }
 
 .contact-card-v2 {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 40px;
     border-radius: var(--radius-lg);
-    padding: 35px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: all 0.4s ease;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--glass-shadow);
 }
 
 .contact-card-v2:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
+    transform: translateY(-10px);
 }
 
 .card-tag {
@@ -985,21 +1026,23 @@ button {
 }
 
 .social-card-v2 {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-lg);
-    padding: 60px 40px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 30px;
+    border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 20px;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--glass-shadow);
 }
 
 .social-card-v2:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-10px);
+    transform: translateY(-8px) scale(1.05);
 }
 
 .social-icon-wrapper {
