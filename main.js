@@ -108,38 +108,228 @@ if (foundationSection && stackImages.length > 0) {
     });
 }
 
-// 4. Typewriter Effect (Kept but enhanced speed)
+// 4. Ancient Chisel Typewriter & Tagline Loop
 const typedTitle = document.getElementById('typed-title');
-const textToType = "Kingdavid Babalola";
-let charIndex = 0;
-let isDeleting = false;
-let typeSpeed = 150; 
+const taglineEl = document.getElementById('hero-tagline');
+const nameLines = ["Kingdavid", "Babalola"];
+const taglines = [
+    "Creative Director · Brand Strategist",
+    "Architect of Visual Identities",
+    "Forging Brands That Endure",
+    "Creative Alchemist",
+    "Brand Oracle"
+];
 
-const type = () => {
-    const currentText = textToType.substring(0, charIndex);
-    if (typedTitle) {
-        typedTitle.textContent = currentText;
+let taglineIndex = 0;
+let taglineController; // To cancel/reset tagline loop
+
+const runTaglineStamp = async (text) => {
+    taglineEl.innerHTML = '';
+    const words = text.split(' ');
+    
+    for (let i = 0; i < words.length; i++) {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'stamp-word';
+        wordSpan.textContent = words[i];
+        taglineEl.appendChild(wordSpan);
+
+        // Word "Stamp" effect: low opacity -> deeper
+        animate(wordSpan, 
+            { opacity: [0, 0.4, 0.8], scale: [1.2, 1] }, 
+            { duration: 0.6, easing: "ease-out" }
+        );
+
+        if (i < words.length - 1) {
+            const pause = document.createElement('span');
+            pause.className = 'stamp-pause';
+            pause.textContent = ' — ';
+            taglineEl.appendChild(pause);
+            await new Promise(r => setTimeout(r, 400));
+        }
+        await new Promise(r => setTimeout(r, 300));
     }
 
-    if (!isDeleting && charIndex < textToType.length) {
-        charIndex++;
-        typeSpeed = 150;
-    } else if (isDeleting && charIndex > 0) {
-        charIndex--;
-        typeSpeed = 100;
-    } else if (!isDeleting && charIndex === textToType.length) {
-        isDeleting = true;
-        typeSpeed = 4000;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        typeSpeed = 1000;
-    }
+    // Hold tagline
+    await new Promise(r => setTimeout(r, 3000));
 
-    setTimeout(type, typeSpeed);
+    // Fade out tagline "like smoke"
+    await animate(taglineEl, { opacity: 0, filter: "blur(4px)" }, { duration: 1 }).finished;
+    taglineEl.style.opacity = '1';
+    taglineEl.style.filter = 'none';
+    taglineEl.innerHTML = '';
 };
 
-if (typedTitle) {
-    setTimeout(type, 1000);
+const runChiselLoop = async () => {
+    while (true) {
+        // RESET TAGLINE ON REWRITE
+        taglineIndex = 0;
+        taglineEl.innerHTML = '';
+
+        // 1. Writing phase (Name)
+        typedTitle.innerHTML = '';
+        const line1 = document.createElement('div');
+        const line2 = document.createElement('div');
+        line1.className = 'line';
+        line2.className = 'line';
+        typedTitle.appendChild(line1);
+        typedTitle.appendChild(line2);
+
+        const cursor = document.createElement('span');
+        cursor.className = 'chisel-cursor';
+
+        // Write Line 1: Kingdavid
+        line1.appendChild(cursor);
+        for (const char of nameLines[0]) {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.color = '#c8922a';
+            span.style.textShadow = '0 0 10px #c8922a';
+            span.style.display = 'inline-block';
+            line1.insertBefore(span, cursor);
+            animate(span, 
+                { color: ['#c8922a', '#f5e6c8'], textShadow: ['0 0 15px #c8922a', 'none'] }, 
+                { duration: 0.8, easing: "ease-out" }
+            );
+            await new Promise(r => setTimeout(r, 150));
+        }
+        line1.removeChild(cursor);
+
+        // Write Line 2: Babalola
+        line2.appendChild(cursor);
+        for (const char of nameLines[1]) {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.color = '#c8922a';
+            span.style.textShadow = '0 0 10px #c8922a';
+            span.style.display = 'inline-block';
+            line2.insertBefore(span, cursor);
+            animate(span, 
+                { color: ['#c8922a', '#f5e6c8'], textShadow: ['0 0 15px #c8922a', 'none'] }, 
+                { duration: 0.8, easing: "ease-out" }
+            );
+            await new Promise(r => setTimeout(r, 150));
+        }
+
+        // 2. Waiting phase (Name is visible)
+        cursor.style.display = 'none';
+        
+        // Start Tagline Cycle in parallel
+        const taglinePromise = (async () => {
+            await new Promise(r => setTimeout(r, 800));
+            while (true) {
+                await runTaglineStamp(taglines[taglineIndex]);
+                taglineIndex = (taglineIndex + 1) % taglines.length;
+                await new Promise(r => setTimeout(r, 500));
+                if (taglineIndex === 0) break; // We'll restart with the name loop anyway
+            }
+        })();
+
+        // Name wait total: 5s (but name and tagline are concurrent)
+        await new Promise(r => setTimeout(r, 5000));
+
+        // 3. Unwriting phase (Name)
+        const line2Chars = Array.from(line2.querySelectorAll('span'));
+        for (let i = line2Chars.length - 1; i >= 0; i--) {
+            line2Chars[i].remove();
+            await new Promise(r => setTimeout(r, 40));
+        }
+        const line1Chars = Array.from(line1.querySelectorAll('span'));
+        for (let i = line1Chars.length - 1; i >= 0; i--) {
+            line1Chars[i].remove();
+            await new Promise(r => setTimeout(r, 40));
+        }
+
+        // 4. Resting phase (1s)
+        await new Promise(r => setTimeout(r, 1000));
+    }
+};
+
+if (typedTitle && taglineEl) {
+    runChiselLoop();
+}
+
+// 5. Custom Gold Cursor System
+const initCustomCursor = () => {
+    const dot = document.createElement('div');
+    const ring = document.createElement('div');
+    dot.className = 'cursor-dot';
+    ring.className = 'cursor-ring';
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+    const lerp = (a, b, n) => (1 - n) * a + n * b;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = `${mouseX}px`;
+        dot.style.top = `${mouseY}px`;
+        dot.style.transform = `translate(-50%, -50%)`;
+    });
+
+    // Hover detection
+    const updateInteractiveElements = () => {
+        const interactiveElements = document.querySelectorAll('a, button, .btn-v2, .swiper-slide img');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => ring.classList.add('active'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('active'));
+        });
+    };
+    updateInteractiveElements();
+
+    // Glyph Flare
+    const glyph = document.createElement('div');
+    glyph.className = 'cursor-glyph';
+    glyph.textContent = 'KB';
+    document.body.appendChild(glyph);
+
+    setInterval(() => {
+        glyph.style.left = `${mouseX}px`;
+        glyph.style.top = `${mouseY - 40}px`;
+        glyph.style.opacity = '1';
+        glyph.style.transform = 'translate(-50%, -30px)';
+        setTimeout(() => {
+            glyph.style.opacity = '0';
+            glyph.style.transform = 'translate(-50%, -20px)';
+        }, 1000);
+    }, 2000);
+
+    const tick = () => {
+        // Smooth follow for ring
+        ringX = lerp(ringX, mouseX, 0.15);
+        ringY = lerp(ringY, mouseY, 0.15);
+        ring.style.left = `${ringX}px`;
+        ring.style.top = `${ringY}px`;
+
+        // Trail particles
+        if (Math.abs(mouseX - ringX) > 2 || Math.abs(mouseY - ringY) > 2) {
+            const p = document.createElement('div');
+            p.className = 'cursor-particle';
+            p.style.left = `${mouseX}px`;
+            p.style.top = `${mouseY}px`;
+            p.style.transform = `translate(-50%, -50%)`;
+            document.body.appendChild(p);
+            
+            animate(p, 
+                { 
+                    opacity: [1, 0], 
+                    scale: [1, 0.2], 
+                    x: [0, (Math.random() - 0.5) * 20],
+                    y: [0, 20] 
+                }, 
+                { duration: 0.8 }
+            ).then(() => p.remove());
+        }
+
+        requestAnimationFrame(tick);
+    };
+    tick();
+};
+
+if (window.innerWidth > 1024) {
+    initCustomCursor();
 }
 
 
